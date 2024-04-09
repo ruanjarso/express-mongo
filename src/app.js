@@ -33,15 +33,21 @@ app.get("/livros/:id",(req,res) => { //O ":" em ":id" é para avisar o express q
     res.status(200).json(livros[index]);
 })
 
-app.post("/livros",(req,res) => { //O ".post" é para realizar p método POST do http que a gente quer!
+app.post("/livros",(req,res) => { //O ".post" é para realizar o método POST do http que insere um dado!
     livros.push(req.body);
     res.status(201).send("livro cadastrado com sucesso!")
 })
 
-app.put("/livros/:id",(req,res) => {
+app.put("/livros/:id",(req,res) => { //O ".put" é para realizar o método PUT do http que atualiza os dados!
     const index = buscaLivro(req.params.id);
     livros[index].titulo = req.body.titulo;
     res.status(200).json(livros);
+})
+
+app.delete("/livros/:id",(req,res) => {
+    const index = buscaLivro(req.params.id);
+    livros.splice(index, 1);   //O "splice" é um método javaScript que deleta um elemento de um array!
+    res.status(200).send("O livro foi deletado!");
 })
 
 export default app;

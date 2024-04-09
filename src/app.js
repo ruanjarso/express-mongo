@@ -1,6 +1,7 @@
 import express from "express";
 
 const app = express();
+app.use(express.json());
 
 const livros = [
     {
@@ -20,5 +21,10 @@ app.get("/",(req,res) => {  //o get é método http que eu quero que ele faça!
 app.get("/livros", (req,res) => {
     res.status(200).json(livros);  //já o json explicita que quer que retorne um arquivo json!
 });
+
+app.post("/livros",(req,res) => {
+    livros.push(req.body);
+    res.status(201).send("livro cadastrado com sucesso!")
+})
 
 export default app;

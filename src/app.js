@@ -1,4 +1,15 @@
 import express from "express";
+import conectaNaDatabase from "./config/dbConnect.js";
+
+const conecxao = await conectaNaDatabase();
+
+conecxao.on("erro", (erro) => {
+    console.error("erro de conexão", erro);
+});
+
+conecxao.once("open", () => {
+    console.log("Conecxão com o banco feita com sucesso!")
+})
 
 const app = express();
 app.use(express.json());
@@ -44,7 +55,7 @@ app.put("/livros/:id",(req,res) => { //O ".put" é para realizar o método PUT d
     res.status(200).json(livros);
 })
 
-app.delete("/livros/:id",(req,res) => {
+app.delete("/livros/:id",(req,res) => { //O ".delete" é para realizar o método DELETE do http que deleta um dado!
     const index = buscaLivro(req.params.id);
     livros.splice(index, 1);   //O "splice" é um método javaScript que deleta um elemento de um array!
     res.status(200).send("O livro foi deletado!");

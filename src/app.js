@@ -1,5 +1,6 @@
 import express from "express";
 import conectaNaDatabase from "./config/dbConnect.js";
+import livro from "./models/Livro.js"
 
 const conecxao = await conectaNaDatabase();
 
@@ -14,29 +15,13 @@ conecxao.once("open", () => {
 const app = express();
 app.use(express.json());
 
-const livros = [
-    {
-        id: 1,
-        titulo: "O Senhor dos Anéis"
-    },
-    {
-        id: 2,
-        titulo: "O Hobbit"
-    }
-]
-
-function buscaLivro(id) {
-    return livros.findIndex(livro => {
-        return livro.id === Number(id);
-    })
-}
-
 app.get("/",(req,res) => {  //o get é método http que eu quero que ele faça!
     res.status(200).send("Curso de Node.js"); //o send só é ultilizado para estruturas simples tipo uma string!
 });
 
-app.get("/livros", (req,res) => {
-    res.status(200).json(livros);  //já o json explicita que quer que retorne um arquivo json!
+app.get("/livros", async (req,res) => {
+    const listaLivros = await livro.find({});
+    res.status(200).json(listaLivros);  //já o json explicita que quer que retorne um arquivo json!
 });
 
 app.get("/livros/:id",(req,res) => { //O ":" em ":id" é para avisar o express que o "id" vai ser algo variável!

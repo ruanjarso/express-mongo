@@ -1,5 +1,6 @@
 //import http from "http";  //já não é mais preciso ultilizar essa importação pois foi substituida pelo express;
 import app from "./src/app.js";
+import "dotenv/config";
 const PORT = 3000;
 
 /*const rotas = {       //já não é mais preciso ultilizar essa criação de rotas pois foi substituido pelo express;

@@ -19,11 +19,6 @@ app.get("/",(req,res) => {  //o get é método http que eu quero que ele faça!
     res.status(200).send("Curso de Node.js"); //o send só é ultilizado para estruturas simples tipo uma string!
 });
 
-app.get("/livros", async (req,res) => {
-    const listaLivros = await livro.find({});
-    res.status(200).json(listaLivros);  //já o json explicita que quer que retorne um arquivo json!
-});
-
 app.get("/livros/:id",(req,res) => { //O ":" em ":id" é para avisar o express que o "id" vai ser algo variável!
     const index = buscaLivro(req.params.id);
     res.status(200).json(livros[index]);

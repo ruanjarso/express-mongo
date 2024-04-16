@@ -1,5 +1,6 @@
 import express from "express";
 import conectaNaDatabase from "./config/dbConnect.js";
+import routes from "./routes/index.js";
 
 
 const conecxao = await conectaNaDatabase();
@@ -13,11 +14,7 @@ conecxao.once("open", () => {
 })
 
 const app = express();
-app.use(express.json());
-
-app.get("/",(req,res) => {  //o get é método http que eu quero que ele faça!
-    res.status(200).send("Curso de Node.js"); //o send só é ultilizado para estruturas simples tipo uma string!
-});
+routes(app);
 
 app.get("/livros/:id",(req,res) => { //O ":" em ":id" é para avisar o express que o "id" vai ser algo variável!
     const index = buscaLivro(req.params.id);

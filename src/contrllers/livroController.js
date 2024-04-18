@@ -12,7 +12,7 @@ class LivroController {
         try {
             const novoLivro = await livro.create(req,body);
             res.status(201).json({ message: "criado com sucesso", livro: novoLivro });
-        } catch (error) {
+        } catch (erro) {
             res.status(500).json({ message: `${erro.message} - falha ao cadastrar livro!` });
         }
     }

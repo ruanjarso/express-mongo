@@ -3,15 +3,15 @@ import conectaNaDatabase from "./config/dbConnect.js";
 import routes from "./routes/index.js";
 
 
-const conecxao = await conectaNaDatabase();
+const conexao = await conectaNaDatabase();
 
-conecxao.on("erro", (erro) => {
+conexao.on("error", (erro) => {
     console.error("erro de conexão", erro);
 });
 
-conecxao.once("open", () => {
+conexao.once("open", () => {
     console.log("Conecxão com o banco feita com sucesso!")
-})
+});
 
 const app = express();
 routes(app);

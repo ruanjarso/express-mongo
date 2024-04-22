@@ -1,8 +1,8 @@
-import livro from "../models/Livro.js";
+import autor, { autor } from "../models/Autor.js";
 
-class LivroController { //classe na qual vamos exportar os métodos que estão nela!
+class AutorController { //classe na qual vamos exportar os métodos que estão nela!
 
-    static async listarLivros(req, res) { /* sobre o "static":  
+    static async listarAutores(req, res) { /* sobre o "static":  
     Métodos Estáticos:
     Definição: Um método estático é declarado usando a palavra-chave static.
     Chamada: Os métodos estáticos não são chamados em instâncias da classe.
@@ -24,49 +24,49 @@ class LivroController { //classe na qual vamos exportar os métodos que estão n
     */
 
         try {
-            const listaLivros = await livro.find({});
-            res.status(200).json(listaLivros);  //já o json explicita que quer que retorne um arquivo json!           
+            const listaAutores = await autor.find({});
+            res.status(200).json(listaAutores);  //já o json explicita que quer que retorne um arquivo json!           
         } catch (erro) {
             res.status(500).json({ message: `${erro.message} - falha na requisição` })
         }
 
     };
 
-    static async listarLivroPorId(req, res) {
+    static async listarAutorPorId(req, res) {
         try {
             const id = req.params.id;
-            const livroEncontrado = await livro.findById(id);
-            res.status(200).json(livroEncontrado);  //já o json explicita que quer que retorne um arquivo json!           
+            const autorEncontrado = await autor.findById(id);
+            res.status(200).json(autorEncontrado);  //já o json explicita que quer que retorne um arquivo json!           
         } catch (erro) {
-            res.status(500).json({ message: `${erro.message} - falha na requisição do livro` })
+            res.status(500).json({ message: `${erro.message} - falha na requisição do autor` })
         }
     };
 
-    static async cadastrarLivro(req, res) {
+    static async cadastrarAutor(req, res) {
         // O try catch serve para manejos de tentativas e falhas!
         try {
-            const novoLivro = await livro.create(req.body);
-            res.status(201).json({ message: "criado com sucesso", livro: novoLivro });
+            const novoAutor = await autor.create(req.body);
+            res.status(201).json({ message: "criado com sucesso", autor: novoAutor });
         } catch (erro) {
-            res.status(500).json({ message: `${erro.message} - falha ao cadastrar livro!` });
+            res.status(500).json({ message: `${erro.message} - falha ao cadastrar autor!` });
         }
     }
 
-    static async atualizarLivro(req, res) {
+    static async atualizarAutor(req, res) {
         try {
             const id = req.params.id;
-            await livro.findByIdAndUpdate(id, req.body);
-            res.status(200).json({ message: "livro atualizado!" });
+            await autor.findByIdAndUpdate(id, req.body);
+            res.status(200).json({ message: "autor atualizado!" });
         } catch (erro) {
             res.status(500).json({ message: `${erro.message} - falha na atualização` })
         }
     };
 
-    static async deletarLivro(req, res) {
+    static async deletarAutor(req, res) {
         try {
             const id = req.params.id;
-            await livro.findByIdAndDelete(id);
-            res.status(200).json({ message: "livro deletado!" });
+            await autor.findByIdAndDelete(id);
+            res.status(200).json({ message: "autor deletado!" });
         } catch (erro) {
             res.status(500).json({ message: `${erro.message} - falha na exclusão!` })
         }
@@ -74,4 +74,4 @@ class LivroController { //classe na qual vamos exportar os métodos que estão n
 
 };
 
-export default LivroController;
+export default AutorController;

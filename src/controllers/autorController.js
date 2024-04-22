@@ -1,4 +1,4 @@
-import autor, { autor } from "../models/Autor.js";
+import { autor } from "../models/Autor.js";
 
 class AutorController { //classe na qual vamos exportar os métodos que estão nela!
 

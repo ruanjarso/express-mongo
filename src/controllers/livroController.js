@@ -1,4 +1,5 @@
 import livro from "../models/Livro.js";
+import { autor } from "../models/Autor.js"
 
 class LivroController { //classe na qual vamos exportar os métodos que estão nela!
 
@@ -44,8 +45,11 @@ class LivroController { //classe na qual vamos exportar os métodos que estão n
 
     static async cadastrarLivro(req, res) {
         // O try catch serve para manejos de tentativas e falhas!
+        const novoLivro = req.body;
         try {
-            const novoLivro = await livro.create(req.body);
+            const autorEncontrado = await autor.findById(novoLivro.autor);
+            const livroCompleto = { ...novoLivro, autor: { ...autorEncontrado._doc } };
+            const livroCriado = await livro.create(livroCompleto);
             res.status(201).json({ message: "criado com sucesso", livro: novoLivro });
         } catch (erro) {
             res.status(500).json({ message: `${erro.message} - falha ao cadastrar livro!` });

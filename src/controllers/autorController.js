@@ -1,31 +1,10 @@
 import { autor } from "../models/Autor.js";
 
-class AutorController { //classe na qual vamos exportar os métodos que estão nela!
-
-    static async listarAutores(req, res) { /* sobre o "static":  
-    Métodos Estáticos:
-    Definição: Um método estático é declarado usando a palavra-chave static.
-    Chamada: Os métodos estáticos não são chamados em instâncias da classe.
-    Em vez disso, eles são chamados diretamente na própria classe.
-    Utilidade: Geralmente, os métodos estáticos são funções utilitárias, 
-    como aquelas usadas para criar ou clonar objetos.
-
-    EXEMPLO:
-    class ExemploClasse {
-        static metodoEstatico() {
-        return "O método estático foi chamado";
-    }
-    }
-
-    // Chamada do método estático:
-    console.log(ExemploClasse.metodoEstatico());
-    
-    Saída: "O método estático foi chamado"
-    */
-
+class AutorController { 
+    static async listarAutores(req, res) {
         try {
             const listaAutores = await autor.find({});
-            res.status(200).json(listaAutores);  //já o json explicita que quer que retorne um arquivo json!           
+            res.status(200).json(listaAutores);             
         } catch (erro) {
             res.status(500).json({ message: `${erro.message} - falha na requisição` })
         }
@@ -36,14 +15,14 @@ class AutorController { //classe na qual vamos exportar os métodos que estão n
         try {
             const id = req.params.id;
             const autorEncontrado = await autor.findById(id);
-            res.status(200).json(autorEncontrado);  //já o json explicita que quer que retorne um arquivo json!           
+            res.status(200).json(autorEncontrado);             
         } catch (erro) {
             res.status(500).json({ message: `${erro.message} - falha na requisição do autor` })
         }
     };
 
     static async cadastrarAutor(req, res) {
-        // O try catch serve para manejos de tentativas e falhas!
+        
         try {
             const novoAutor = await autor.create(req.body);
             res.status(201).json({ message: "criado com sucesso", autor: novoAutor });

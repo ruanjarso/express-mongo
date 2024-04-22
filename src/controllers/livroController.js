@@ -26,7 +26,7 @@ class LivroController {
     static async cadastrarLivro (req,res) {
         // O try catch serve para manejos de tentativas e falhas!
         try {
-            const novoLivro = await livro.create(req,body);
+            const novoLivro = await livro.create(req.body);
             res.status(201).json({ message: "criado com sucesso", livro: novoLivro });
         } catch (erro) {
             res.status(500).json({ message: `${erro.message} - falha ao cadastrar livro!` });

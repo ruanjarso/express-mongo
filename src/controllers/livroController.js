@@ -77,7 +77,7 @@ class LivroController { //classe na qual vamos exportar os métodos que estão n
     }
 
     static async listarLivrosPorEditora (req,res) {
-        const editora = re.query.editora
+        const editora = req.query.editora
         try {
             const livrosPorEditora = await livro.find({editora: editora});
             res.status(200).json(livrosPorEditora);

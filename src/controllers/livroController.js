@@ -84,6 +84,7 @@ class LivroController { //classe na qual vamos exportar os métodos que estão n
         } catch (erro) {
             res.status(500).json({ message: `${erro.message} - falha na busca!` });
         }
+        //maneira de pesquisar: http://localhost:3000/livros/busca?editora=Classicos
     }
 
 };
